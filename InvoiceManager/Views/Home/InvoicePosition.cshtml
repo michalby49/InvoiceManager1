@@ -3,14 +3,14 @@
     ViewBag.Title = Model.Heading;
 }
 
-<h2 class="mb-3">@Model.Heading</h2>
+<h1 class="mb-3">@Model.Heading</h1>
 
 @using (Html.BeginForm("InvoicePosition","Home"))
 {
     if (Model.InvoicePosition.Id == 0)
     {
         <p class="alert alert-info mt-4 mb-4">
-            Pl, produkt opraz ilość są
+            Pl, produkt oraz ilość są
             <strong>wymagane</strong>.
         </p>
 

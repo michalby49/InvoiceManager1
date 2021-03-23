@@ -8,7 +8,7 @@ namespace InvoiceManager.Models.ViewModels
 {
     public class EditInvoicePositionViewModel
     {
-        public InvoicePosition InvoicePosition{ get; set; }
+        public InvoicePosition InvoicePosition { get; set; }
         public string Heading { get; set; }
         public List<Product> Products { get; set; }
 
