@@ -36,7 +36,7 @@ namespace InvoiceManager.Controllers
                 Invoice = invoice,
                 Heading = invoice.Id == 0 ? "Dodawanie nowej faktury" : "Faktura",
                 Clients = _clientRepository.GetClient(userId),
-                MethodOfPaymands = _invoiceRepository.GetMethodOfPaymend
+                MethodOfPaymands = _invoiceRepository.GetMethodOfPaymend()
             };
         }
 
@@ -93,10 +93,15 @@ namespace InvoiceManager.Controllers
         public ActionResult InvoicePosition(InvoicePosition invoicePosition)
         {
             var userId = User.Identity.GetUserId();
-
             var product = _productRepository.GetProdut(invoicePosition.ProductId);
-
             invoicePosition.Value = invoicePosition.Quantity * product.Value;
+
+            if(!ModelState.IsValid)
+            {
+                var vm = PrepareInvoicePositionVm(invoicePosition);
+
+                return View("InvoicePosition", vm);
+            }
 
             if(invoicePosition.Id == 0)
             {
@@ -158,6 +163,13 @@ namespace InvoiceManager.Controllers
         {
             var userId = User.Identity.GetUserId();
             invoice.UserId = userId;
+
+            if(!ModelState.IsValid)
+            {
+                var vm = PrepareInvoiceVm(invoice, userId);
+                return View("Invoice", vm);
+            }
+
 
             if(invoice.Id == 0)
             {

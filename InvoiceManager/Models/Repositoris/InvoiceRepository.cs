@@ -55,6 +55,7 @@ namespace InvoiceManager.Models.Repositoris
         {
             using (var context = new ApplicationDbContext())
             {
+                invoice.CreatedDate = DateTime.Now;
                 context.Invoices.Add(invoice);
                 context.SaveChanges();
             }
@@ -94,7 +95,18 @@ namespace InvoiceManager.Models.Repositoris
         {
             using (var context = new ApplicationDbContext())
             {
-                var positionToUpdate = 
+                var positionToUpdate = context.InvoicePositions
+                    .Include(x => x.Product)
+                    .Include(x => x.Invoice)
+                    .Single(x => x.Id == invoicePosition.Id
+                    && x.Invoice.UserId == userId);
+
+                positionToUpdate.Lp = invoicePosition.Lp;
+                positionToUpdate.ProductId = invoicePosition.ProductId;
+                positionToUpdate.Quantity = invoicePosition.Quantity;
+                positionToUpdate.Value = invoicePosition.Product.Value * invoicePosition.Value;
+
+                context.SaveChanges();
             }
         }
 
@@ -102,7 +114,15 @@ namespace InvoiceManager.Models.Repositoris
         {
             using (var context = new ApplicationDbContext())
             {
+                var invoice = context.Invoices
+                    .Include(x => x.InvoicePositions)
+                    .Single(x => x.Id == invoiceId && x.UserId == userId);
 
+                invoice.Value = invoice.InvoicePositions.Sum(x => x.Value);
+
+                context.SaveChanges();
+
+                return invoice.Value;
             }
         }
 
@@ -110,7 +130,11 @@ namespace InvoiceManager.Models.Repositoris
         {
             using (var context = new ApplicationDbContext())
             {
+                var invoiceToDelete = context.Invoices
+                    .Single(x => x.Id == id && x.UserId == userId);
 
+                context.Invoices.Remove(invoiceToDelete);
+                context.SaveChanges();
             }
         }
 
@@ -118,7 +142,12 @@ namespace InvoiceManager.Models.Repositoris
         {
             using (var context = new ApplicationDbContext())
             {
+                var positionToDelete = context.InvoicePositions
+                    .Include(x => x.Invoice)
+                    .Single(x => x.Id == id && x.Invoice.UserId == userId);
 
+                context.InvoicePositions.Remove(positionToDelete);
+                context.SaveChanges();
             }
         }
     }
