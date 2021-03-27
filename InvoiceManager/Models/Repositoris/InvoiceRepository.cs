@@ -25,7 +25,7 @@ namespace InvoiceManager.Models.Repositoris
             }
         }
 
-        public Invoice GetInvoive(int id, string userId)
+        public Invoice GetInvoice(int id, string userId)
         {
             using (var context = new ApplicationDbContext())
             {

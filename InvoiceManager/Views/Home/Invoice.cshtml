@@ -104,8 +104,27 @@
 {
 
     <script typr="text/javascript">
+
         function generatePdf() {
 
+            $.ajax({
+
+                type: 'POST',
+                url: "@Url.Action("InvoiceToPdf", "Print")",
+                data: {
+                    id: '@Model.Invoice.Id'
+
+                },
+                success: function (data) {
+                    window.Location = '@Url.Action("DownloadInvoicePdf","Print")'
+                        + '?fileGuid=' + data.FileGuid + '&fileName=' + data.FileName;
+                },
+                error: function (data) {
+                    alert(data.Message);
+                },
+                dataType: 'json',
+                cache: false
+                });
         }
         function deleteInvoicePosition(id, invoiceId, btn) {
 
@@ -135,7 +154,7 @@
                 },
                 dataType: 'json'
 
-                });
+            });
 
         };
 

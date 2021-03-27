@@ -1,4 +1,13 @@
-﻿
+﻿@page {
+    size: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+}
+
+nav, footer{
+    display: none !important;
+}
 
 .invoice-font {
     font-size: 18px;

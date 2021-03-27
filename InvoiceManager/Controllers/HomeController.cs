@@ -22,7 +22,7 @@ namespace InvoiceManager.Controllers
 
             Invoice invoice = id == 0 ?
                 GetNewInvoice(userId) :
-                _invoiceRepository.GetInvoive(id, userId);
+                _invoiceRepository.GetInvoice(id, userId);
 
             var vm = PrepareInvoiceVm(invoice, userId);
 
