@@ -33,7 +33,7 @@ namespace InvoiceManager.Controllers
 
         private byte[] GetPdfContent(Invoice invoice)
         {
-            var pdfResult = new ViewAsPdf(@"Invoicetemplate", invoice)
+            var pdfResult = new ViewAsPdf(@"InvoiceTemplate", invoice)
             {
                 PageSize = Size.A4,
                 PageOrientation = Orientation.Portrait
@@ -50,9 +50,6 @@ namespace InvoiceManager.Controllers
             var data = TempData[fileGuid] as byte[];
             return File(data, "application/pdf", fileName);
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
+
     }
 }

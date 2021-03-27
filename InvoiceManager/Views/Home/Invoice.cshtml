@@ -116,7 +116,7 @@
 
                 },
                 success: function (data) {
-                    window.Location = '@Url.Action("DownloadInvoicePdf","Print")'
+                    window.location = '@Url.Action("DownloadInvoicePdf","Print")'
                         + '?fileGuid=' + data.FileGuid + '&fileName=' + data.FileName;
                 },
                 error: function (data) {
