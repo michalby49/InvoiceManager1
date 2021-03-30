@@ -16,6 +16,24 @@ nav, footer{
     color: black !important;
 }
 
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex !important;
+}
+
+.row > div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+tr, td, thead, thead tr, thead tr th, tfoot {
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+}
+
 .header-font {
     font-size: 22px;
     text-transform: uppercase;
